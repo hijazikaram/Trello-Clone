@@ -1,0 +1,33 @@
+<div>
+
+  <!-- <div ng-repeat="list in lists">
+    <h2>{{list.title}}</h2>
+    <div ng-repeat = "card in list.cards" ng-click = "card.edit=true">
+      {{card.task}}
+      {{card}}
+      <div ng-show = "card.edit">
+        <input  ng-model="card.task"/>
+        <button ng-click="update(card, $event)">Done Editing </button>
+        {{card}}
+      </div>
+    </div>
+    <span> + </span>
+  </div> -->
+  <div class="div-around-love3">
+  <div class="love3">
+    <button type="button"ng-hide="isInput"class="btn btn-primary btn-lg outline" ng-click="isInput = !isInput">Add new list</button>
+    <!-- <span ng-hide="isInput" ng-click="isInput = !isInput">Add new list</span> -->
+  </div>
+  <div ng-show="isInput">
+    <input class="input form-control" ng-model="listName" placeholder="Add new list"></input>
+    <button class="pink btn" ng-click ="addNewList(newList)"> Save</button>
+    <button type="button" ng-click ="isInput = !isInput; listName=''" class="pink2 btn">Cancel</button>
+  </div>
+</div>
+    <!-- <div class="form-group">
+       <button class="btn" ng-click="show = !show">Click me for Show/Hide</button>
+    </div>
+    <div class="form-group" ng-show="show">
+       <p>I am showing</p>
+    </div> -->
+ </div>
