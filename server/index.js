@@ -12,6 +12,7 @@ var UserCtrl = require('./controllers/UserCtrl');
 var boardCtrl = require('./controllers/boardCtrl')
 var listController = require('./controllers/listController');
 
+
 // SERVICES //
 var passport = require('./services/passport');
 
@@ -51,7 +52,10 @@ app.post('/board', boardCtrl.createBoard);
 app.delete('/board/:id', boardCtrl.deleteBoard);
 app.post('/list', listController.createList);
 app.get('/list', listController.readList);
-app.delete('/list', listController.deleteList);
+app.delete('/list/:id', listController.deleteList);
+app.put('/list/:id', listController.updateList);
+app.delete('/card/:id', listController.deleteCard);
+
 
 
 

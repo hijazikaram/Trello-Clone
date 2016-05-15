@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 
 var listSchema = new mongoose.Schema({
-  lists: [{
-    title: {type:String}
+  title: {type:String},
+  board: {type: mongoose.Schema.Types.ObjectId, ref: 'Board'},
+  cards: [{
+    content: {type:String}
   }]
 });
 

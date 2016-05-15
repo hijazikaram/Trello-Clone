@@ -6,6 +6,7 @@
     "start": "node ./server/index.js"
   },
   "dependencies": {
+    "angular-modal-service": "^0.6.10",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",

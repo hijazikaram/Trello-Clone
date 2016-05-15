@@ -1,42 +1,76 @@
-angular.module('myPortfolio').controller('cardCtrl', function($scope, mainService, $state, board){
-  $scope.board = board;
-  $scope.show=false;
-  $scope.isInput = false;
-  $scope.update = function(card, event){
-    //TODO Update on server call service
-    event.preventDefault();
-    event.stopPropagation();
-    card.edit = false;
-    console.log(card);
-  }
-  $scope.createList = function () {
-      mainService.createList($scope.newTitle).then(function (response) {
-      })
-      $scope.readList();
+angular.module('myPortfolio').controller('cardCtrl', function($scope, mainService, $state, board, ModalService) {
+    $scope.board = board;
+    $scope.show = false;
+    $scope.isInput = false;
+    $scope.showCard = false;
+    $scope.newTitle = "";
+    $scope.input1 = "";
 
-  };
+    $scope.createList = function() {
+        console.log("createList");
+        mainService.createList($scope.newTitle, $scope.board._id).then(function(response) {
+            $scope.list = response;
+            $scope.newTitle = "";
+            console.log(response);
+            $scope.getLists();
+        })
+    };
+    // $scope.remove = function(cardId) {
+    //
+    //     mainService.deleteCard(cardId)
+    //         .then(function() {
+    //             $scope.getLists();
+    //         });
+    // };
+
+    $scope.getLists = function() {
+        mainService.readListByBoard($scope.board._id).then(function(response) {
+            $scope.lists = response;
+        })
+    };
+    $scope.getLists();
+    $scope.remove = function(listId) {
+
+        mainService.deleteList(listId)
+            .then(function() {
+                $scope.getLists();
+            });
+    };
+
+    $scope.openForm = function(user) {
+        console.log("its working");
+        ModalService.showModal({
+            // Template file for modal
+            templateUrl: "./../routes/editCard.html",
+            // Controller file for modal
+            controller: "editCardCtrl",
+            // Variables being passed into modal
+            // inputs: {
+            //     // Will be injected into controller as 'user'
+            //     user: user
+            // }
+        }).then(function(modal) {
+            // Funtion that runs when modal closes
+            modal.close.then(function(then) {
+                // then = whatever the close() function in the modal returns
+                $scope.user = then;
+            });
+        });
+    };
+
+    $scope.saveInput = function(input, list) {
+        console.log(input, list);
+        list.cards.push({
+            content: input
+        });
+        mainService.updateList(list).then(function() {
+            $scope.input1 = "";
+        });
+
+    };
+    $scope.closePopups = function() {
+        $('.pop-menu').hide();
+        $scope.toggle = false;
+        // $(".div-outer-outer-outer").modal({backdrop: true});
+    };
 });
-
-
-//   $scope.addNewList = function(newListTitle){
-//     $scope.lists.push({title:newListTitle,cards:[]});
-//     $scope.newList = "";
-//   }
-//   $scope.lists = [
-//     { title:"My First List",
-//       cards:[
-//       {task:"My First Card"},
-//       {task:"My Second Card"},
-//       {task:"My Third Card"}
-//     ]
-//   },
-//   { title:"My Second List",
-//     cards:[
-//     {task:"My 1 Card"},
-//     {task:"My 2 Card"},
-//     {task:"My 3 Card"}
-//   ]
-//   }
-//   ]
-// });
-//JQuery

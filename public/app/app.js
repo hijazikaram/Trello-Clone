@@ -1,4 +1,4 @@
-var app = angular.module('myPortfolio',['ui.router']);
+var app = angular.module('myPortfolio',['ui.router','angularModalService']);
 app.config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('Settings', {

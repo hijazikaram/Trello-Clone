@@ -1,4 +1,65 @@
-var app = angular.module('myPortfolio',['ui.router']);
+/*angular-modal-service v0.6.9 - https://github.com/dwmkerr/angular-modal-service */ ! function() {
+    "use strict";
+    var e = angular.module("angularModalService", []);
+    e.factory("ModalService", ["$animate", "$document", "$compile", "$controller", "$http", "$rootScope", "$q", "$templateRequest", "$timeout", function(e, n, r, t, l, o, c, u, a) {
+        function i() {
+            var n = this,
+                l = function(e, n) {
+                    var r = c.defer();
+                    return e ? r.resolve(e) : n ? u(n, !0).then(function(e) {
+                        r.resolve(e)
+                    }, function(e) {
+                        r.reject(e)
+                    }) : r.reject("No template or templateUrl has been specified."), r.promise
+                },
+                i = function(n, r) {
+                    var t = n.children();
+                    return t.length > 0 ? e.enter(r, n, t[t.length - 1]) : e.enter(r, n)
+                };
+            n.showModal = function(n) {
+                var u = c.defer(),
+                    p = n.controller;
+                return p ? (l(n.template, n.templateUrl).then(function(l) {
+                    var p = (n.scope || o).$new(),
+                        d = c.defer(),
+                        f = c.defer(),
+                        m = {
+                            $scope: p,
+                            close: function(n, r) {
+                                (void 0 === r || null === r) && (r = 0), a(function() {
+                                    d.resolve(n), e.leave($).then(function() {
+                                        f.resolve(n), p.$destroy(), m.close = null, u = null, d = null, j = null, m = null, $ = null, p = null
+                                    })
+                                }, r)
+                            }
+                        };
+                    n.inputs && angular.extend(m, n.inputs);
+                    var v = r(l),
+                        $ = v(p);
+                    m.$element = $;
+                    var h = p[n.controllerAs],
+                        g = t(n.controller, m, !1, n.controllerAs);
+                    n.controllerAs && h && angular.extend(g, h), n.appendElement ? i(n.appendElement, $) : i(s, $);
+                    var j = {
+                        controller: g,
+                        scope: p,
+                        element: $,
+                        close: d.promise,
+                        closed: f.promise
+                    };
+                    u.resolve(j)
+                }).then(null, function(e) {
+                    u.reject(e)
+                }), u.promise) : (u.reject("No controller has been specified."), u.promise)
+            }
+        }
+        var s = n.find("body");
+        return new i
+    }])
+}();
+//# sourceMappingURL=angular-modal-service.min.js.map
+
+var app = angular.module('myPortfolio',['ui.router','angularModalService']);
 app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('Settings', {
@@ -35,48 +96,86 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
 // });
 
 
-angular.module('myPortfolio').controller('cardCtrl', ["$scope", "mainService", "$state", "board", function($scope, mainService, $state, board){
-  $scope.board = board;
-  $scope.show=false;
-  $scope.isInput = false;
-  $scope.update = function(card, event){
-    //TODO Update on server call service
-    event.preventDefault();
-    event.stopPropagation();
-    card.edit = false;
-    console.log(card);
-  }
-  $scope.createList = function () {
-      mainService.createList($scope.newTitle).then(function (response) {
-      })
-      $scope.readList();
+angular.module('myPortfolio').controller('cardCtrl', ["$scope", "mainService", "$state", "board", "ModalService", function($scope, mainService, $state, board, ModalService) {
+    $scope.board = board;
+    $scope.show = false;
+    $scope.isInput = false;
+    $scope.showCard = false;
+    $scope.newTitle = "";
+    $scope.input1 = "";
 
-  };
+    $scope.createList = function() {
+        console.log("createList");
+        mainService.createList($scope.newTitle, $scope.board._id).then(function(response) {
+            $scope.list = response;
+            $scope.newTitle = "";
+            console.log(response);
+            $scope.getLists();
+        })
+    };
+    // $scope.remove = function(cardId) {
+    //
+    //     mainService.deleteCard(cardId)
+    //         .then(function() {
+    //             $scope.getLists();
+    //         });
+    // };
+
+    $scope.getLists = function() {
+        mainService.readListByBoard($scope.board._id).then(function(response) {
+            $scope.lists = response;
+        })
+    };
+    $scope.getLists();
+    $scope.remove = function(listId) {
+
+        mainService.deleteList(listId)
+            .then(function() {
+                $scope.getLists();
+            });
+    };
+
+    $scope.openForm = function(user) {
+        console.log("its working");
+        ModalService.showModal({
+            // Template file for modal
+            templateUrl: "./../routes/editCard.html",
+            // Controller file for modal
+            controller: "editCardCtrl",
+            // Variables being passed into modal
+            // inputs: {
+            //     // Will be injected into controller as 'user'
+            //     user: user
+            // }
+        }).then(function(modal) {
+            // Funtion that runs when modal closes
+            modal.close.then(function(then) {
+                // then = whatever the close() function in the modal returns
+                $scope.user = then;
+            });
+        });
+    };
+
+    $scope.saveInput = function(input, list) {
+        console.log(input, list);
+        list.cards.push({
+            content: input
+        });
+        mainService.updateList(list).then(function() {
+            $scope.input1 = "";
+        });
+
+    };
+    $scope.closePopups = function() {
+        $('.pop-menu').hide();
+        $scope.toggle = false;
+        // $(".div-outer-outer-outer").modal({backdrop: true});
+    };
 }]);
 
-
-//   $scope.addNewList = function(newListTitle){
-//     $scope.lists.push({title:newListTitle,cards:[]});
-//     $scope.newList = "";
-//   }
-//   $scope.lists = [
-//     { title:"My First List",
-//       cards:[
-//       {task:"My First Card"},
-//       {task:"My Second Card"},
-//       {task:"My Third Card"}
-//     ]
-//   },
-//   { title:"My Second List",
-//     cards:[
-//     {task:"My 1 Card"},
-//     {task:"My 2 Card"},
-//     {task:"My 3 Card"}
-//   ]
-//   }
-//   ]
-// });
-//JQuery
+angular.module('myPortfolio').controller('editCardCtrl', ["$scope", "mainService", "$state", "close", function($scope, mainService, $state, close) {
+    $scope.close = close;
+}]);
 
 
 angular.module('myPortfolio').controller('homeCtrl', ["$scope", "mainService", "$state", function($scope, mainService, $state){
@@ -118,72 +217,139 @@ angular.module('myPortfolio').controller('homeCtrl', ["$scope", "mainService", "
 //     };
 //  });
 
-angular.module('myPortfolio').service('mainService', ["$http", function($http){
+angular.module('myPortfolio').service('mainService', ["$http", function($http) {
 
 
-    this.readBoard = function(){
+    this.readBoard = function() {
         return $http({
             method: "GET",
             url: "/board"
-        }).then(function(response){
+        }).then(function(response) {
             return response.data
         })
     };
-    this.readBoardById = function(id){
+    this.readBoardById = function(id) {
         return $http({
             method: "GET",
             url: "/board?_id=" + id
-        }).then(function(response){
+        }).then(function(response) {
             return response.data
         })
     };
-    this.createBoard = function(newTitle){
+    this.createBoard = function(newTitle) {
         return $http({
             method: "POST",
             url: "/board",
-            data: {title:newTitle}
-        }).then(function(response){
-            return response.data
-        })
-    };
-    this.deleteBoard = function(boardId){
-      console.log(boardId);
-        return $http({
-            method: "DELETE",
-            url: "/board/" + boardId._id
-        }).then(function(response){
+            data: {
+                title: newTitle
+            }
+        }).then(function(response) {
             return response.data
         })
     };
 
-    this.readList = function(id){
+    this.updateList = function(list) {
+        console.log("updating mainservice list: ", list._id);
+        return $http({
+            method: "PUT",
+            url: "/list/"+ list._id,
+            data: {
+              cards: list.cards
+            }
+        }).then(function(response) {
+            return response.data;
+        })
+    };
+
+    this.deleteBoard = function(boardId) {
+        console.log(boardId);
+        return $http({
+            method: "DELETE",
+            url: "/board/" + boardId._id
+          }).then(function(response) {
+            return response.data
+          })
+    };
+
+    this.readList = function(id) {
         return $http({
             method: "GET",
             url: "/list",
             // ?_id=" + id
-        }).then(function(response){
+        }).then(function(response) {
             return response.data
         })
     };
-    this.createList = function(){
+    this.createList = function(newTitle, board) {
         return $http({
             method: "POST",
             url: "/list",
-            data: {title}
-        }).then(function(response){
+            data: {
+                title: newTitle,
+                lists: [],
+                board: board
+            }
+        }).then(function(response) {
             return response.data
         })
     };
-    this.deleteList = function(boardId){
-      console.log(boardId);
+    this.deleteList = function(listId) {
+        console.log(listId);
         return $http({
             method: "DELETE",
-            url: "/list",
-        }).then(function(response){
+            url: "/list/" + listId._id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.deleteCard = function(cardId) {
+        console.log(cardId);
+        return $http({
+            method: "DELETE",
+            url: "/list/" + cardId._id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.readListByBoard = function(id) {
+        return $http({
+            method: "GET",
+            url: "/list?board=" + id
+        }).then(function(response) {
             return response.data
         })
     };
 
+}]);
+
+angular.module('myPortfolio').directive('listcardsDirective', ["mainService", "$state", function( mainService, $state) {
+    return {
+        restrict: 'AE',
+        templateUrl: './app/navDirectives/listcardsDirective.html',
+        controller: ["$scope", function($scope) {
+            console.log('jquery is working');
+            setTimeout(function() {
+                $('.pop-menu').hide();
+            }, 5);
+            var self = this;
+            $scope.openPopup = function(id) {
+              $('.'+id+'.pop-menu').show();
+              $scope.toggle= true;
+            }
+            $scope.remove = function(cardId) {
+
+                mainService.deleteCard(cardId)
+                    .then(function() {
+                        $scope.getLists();
+                    });
+            };
+            $scope.closePopups = function () {
+              $('.pop-menu').hide();
+              $scope.toggle=false;
+              // $('.div-outer-outer-outer').modal({backdrop: true});
+            }
+        }]
+    }
 }]);
 
 angular.module('myPortfolio').directive('navDirective', function(){
@@ -192,3 +358,7 @@ angular.module('myPortfolio').directive('navDirective', function(){
   }
 
 });
+
+/*angular-modal-service v0.6.9 - https://github.com/dwmkerr/angular-modal-service */
+!function(){"use strict";var e=angular.module("angularModalService",[]);e.factory("ModalService",["$animate","$document","$compile","$controller","$http","$rootScope","$q","$templateRequest","$timeout",function(e,n,r,t,l,o,c,u,a){function i(){var n=this,l=function(e,n){var r=c.defer();return e?r.resolve(e):n?u(n,!0).then(function(e){r.resolve(e)},function(e){r.reject(e)}):r.reject("No template or templateUrl has been specified."),r.promise},i=function(n,r){var t=n.children();return t.length>0?e.enter(r,n,t[t.length-1]):e.enter(r,n)};n.showModal=function(n){var u=c.defer(),p=n.controller;return p?(l(n.template,n.templateUrl).then(function(l){var p=(n.scope||o).$new(),d=c.defer(),f=c.defer(),m={$scope:p,close:function(n,r){(void 0===r||null===r)&&(r=0),a(function(){d.resolve(n),e.leave($).then(function(){f.resolve(n),p.$destroy(),m.close=null,u=null,d=null,j=null,m=null,$=null,p=null})},r)}};n.inputs&&angular.extend(m,n.inputs);var v=r(l),$=v(p);m.$element=$;var h=p[n.controllerAs],g=t(n.controller,m,!1,n.controllerAs);n.controllerAs&&h&&angular.extend(g,h),n.appendElement?i(n.appendElement,$):i(s,$);var j={controller:g,scope:p,element:$,close:d.promise,closed:f.promise};u.resolve(j)}).then(null,function(e){u.reject(e)}),u.promise):(u.reject("No controller has been specified."),u.promise)}}var s=n.find("body");return new i}])}();
+//# sourceMappingURL=angular-modal-service.min.js.map
