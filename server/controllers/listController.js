@@ -1,4 +1,4 @@
-var List = require('../models/List'); 
+var List = require('../models/List');
 module.exports = {
 
   createList: function(req, res) {
@@ -25,6 +25,15 @@ module.exports = {
   },
 
   updateList: function(req, res) {
+    List.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        res.send(result);
+      }
+    });
+  },
+  updateCard: function(req, res) {
     List.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
       if (err) {
         return res.status(500).send(err);

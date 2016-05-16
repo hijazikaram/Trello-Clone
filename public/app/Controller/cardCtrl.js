@@ -65,6 +65,7 @@ angular.module('myPortfolio').controller('cardCtrl', function($scope, mainServic
         });
         mainService.updateList(list).then(function() {
             $scope.input1 = "";
+            $scope.closePopups();
         });
 
     };

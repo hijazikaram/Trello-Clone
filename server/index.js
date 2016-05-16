@@ -55,6 +55,7 @@ app.get('/list', listController.readList);
 app.delete('/list/:id', listController.deleteList);
 app.put('/list/:id', listController.updateList);
 app.delete('/card/:id', listController.deleteCard);
+app.put('/card/:id', listController.updateCard);
 
 
 

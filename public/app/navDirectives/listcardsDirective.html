@@ -1,17 +1,23 @@
 <div class="content" ng-repeat="card in list.cards track by $index">
     <div class="content-inner" ng-mouseover="hover1 = true" ng-mouseleave="hover1 = false">
         {{card.content}}
-        <div ng-if="hover">
-            <i class="fa2 fa fa-pencil" aria-hidden="true" ng-click="openPopup($index);"></i>
+        <div ng-if="hover1">
+            <i class="fa2 fa fa-pencil" aria-hidden="true" ng-click="openPopup($index, list.title);"></i>
         </div>
     </div>
-    <div class="pop-menu {{$index}}">
-        <div class="option-button" id="edit-label">
-            Edit List
+    <div class="pop-menu {{list.title}}{{$index}}">
+      <textarea class="input2 form-control" rows="3" ng-model="card.content" >{{card.content}}</textarea>
+      <div>
+        <div class="option-button" id="edit-label"ng-click="updateCard()" >
+            Save 
         </div>
-        <div class="option-button" id="delete-list" ng-click="remove(card)">
+      </div>
+      <div>
+        <div class="option-button" id="delete-list" ng-click="remove1($index)">
             Delete
         </div>
+      </div>
     </div>
+
 </div>
-<div class="fade" ng-click="closePopups()" ng-if="toggle"></div>
+<div class="fade-pop-menu" ng-click="closePopups()" ng-if="toggle"></div>

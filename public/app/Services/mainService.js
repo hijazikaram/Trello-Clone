@@ -30,26 +30,24 @@ angular.module('myPortfolio').service('mainService', function($http) {
     };
 
     this.updateList = function(list) {
-        console.log("updating mainservice list: ", list._id);
         return $http({
             method: "PUT",
-            url: "/list/"+ list._id,
+            url: "/list/" + list._id,
             data: {
-              cards: list.cards
+                cards: list.cards
             }
         }).then(function(response) {
             return response.data;
         })
     };
-
     this.deleteBoard = function(boardId) {
         console.log(boardId);
         return $http({
             method: "DELETE",
             url: "/board/" + boardId._id
-          }).then(function(response) {
+        }).then(function(response) {
             return response.data
-          })
+        })
     };
 
     this.readList = function(id) {
