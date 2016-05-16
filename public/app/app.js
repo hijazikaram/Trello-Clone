@@ -11,6 +11,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     controller: 'homeCtrl',
     url: '/Home'
   })
+  .state('Signup', {
+    templateUrl: './../routes/Signup.html',
+    controller: 'SignupCtrl',
+    url: '/Signup'
+  })
+  .state('Signin', {
+    templateUrl: './../routes/Signin.html',
+    controller: 'SigninCtrl',
+    url: '/Signin'
+  })
   .state('card', {
     templateUrl: './../routes/card.html',
      controller: 'cardCtrl',
@@ -26,6 +36,6 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     }
   })
 
-    $urlRouterProvider.otherwise('/Home');
+    $urlRouterProvider.otherwise('/Signin');
 
 });

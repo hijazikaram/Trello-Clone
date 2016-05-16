@@ -72,6 +72,16 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
     controller: 'homeCtrl',
     url: '/Home'
   })
+  .state('Signup', {
+    templateUrl: './../routes/Signup.html',
+    controller: 'SignupCtrl',
+    url: '/Signup'
+  })
+  .state('Signin', {
+    templateUrl: './../routes/Signin.html',
+    controller: 'SigninCtrl',
+    url: '/Signin'
+  })
   .state('card', {
     templateUrl: './../routes/card.html',
      controller: 'cardCtrl',
@@ -87,7 +97,7 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
     }
   })
 
-    $urlRouterProvider.otherwise('/Home');
+    $urlRouterProvider.otherwise('/Signin');
 
 }]);
 
@@ -95,6 +105,25 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
 //         $state.go('List', {id:id});
 // });
 
+
+angular.module('myPortfolio').controller('SigninCtrl', ["$scope", "mainService", "$state", function($scope, mainService, $state){
+    $scope.login = function () {
+      console.log("its working");
+      mainService.login($scope.credentials).then(function (response) {
+        $state.go('Home');
+        $scope.user = response.data._id;
+        alert("Welcome to Trello");
+      })
+    }
+}]);
+
+angular.module('myPortfolio').controller('SignupCtrl', ["$scope", "mainService", function($scope, mainService){
+    $scope.register = function () {
+      console.log("its working");
+      mainService.register($scope.newUser).then(function (response) {
+      })
+    }
+}]);
 
 angular.module('myPortfolio').controller('cardCtrl', ["$scope", "mainService", "$state", "board", "ModalService", function($scope, mainService, $state, board, ModalService) {
     $scope.board = board;
@@ -229,6 +258,26 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
             return response.data
         })
     };
+    this.register = function (user) {
+      console.log(user);
+      return $http({
+        method: "POST",
+        url: "/users",
+        data: user
+      }).then(function (response) {
+        return response
+      })
+    }
+    this.login = function (user) {
+      console.log(user);
+      return $http({
+        method: "POST",
+        url: "/login",
+        data: user
+      }).then(function (response) {
+        return response
+      })
+    }
     this.readBoardById = function(id) {
         return $http({
             method: "GET",

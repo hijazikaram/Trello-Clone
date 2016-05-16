@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 
 var boardSchema = new mongoose.Schema({
 
-    title: String
+    title: String,
 
 
 });
 
-module.exports = mongoose.model('board', boardSchema);
+module.exports = mongoose.model('Board', boardSchema);

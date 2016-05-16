@@ -38,6 +38,7 @@ app.use(passport.session());
 app.use(express.static(__dirname + "./../public"));
 app.post('/users', UserCtrl.register);
 app.get('/me', isAuthed, UserCtrl.me);
+
 app.put('/users/:_id', isAuthed, UserCtrl.update);
 
 app.post('/login', passport.authenticate('local', {
@@ -48,7 +49,7 @@ app.get('/logout', function(req, res, next) {
   return res.status(200).send('logged out');
 });
 app.get('/board', boardCtrl.readBoard);
-app.post('/board', boardCtrl.createBoard);
+app.post('/board', isAuthed, boardCtrl.createBoard);
 app.delete('/board/:id', boardCtrl.deleteBoard);
 app.post('/list', listController.createList);
 app.get('/list', listController.readList);

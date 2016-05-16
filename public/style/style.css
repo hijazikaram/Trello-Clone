@@ -291,3 +291,36 @@ span {
   opacity: 0.5;
   z-index: 1;
 }
+.align-center{
+  text-align: center;
+  align-items: center;
+}
+.width{
+  width: 20%;
+  margin: 0 auto;
+}
+.name2{
+  text-align: center;
+  margin-right: 240px;
+  margin-top: 3px
+}
+.around-password{
+  text-align: center;
+  margin-right: 215px;
+  margin-top: 3px;
+}
+.new-account{
+  margin-top: 30px;
+  background-color: #b81c79;
+}
+.around-everything{
+  margin-top: 100px;
+}
+.around-signin{
+  text-align: center;
+  margin-top: 30px;
+  color: #99a4a1;
+}
+#take-to-signin{
+  color: #99a4a1;
+}

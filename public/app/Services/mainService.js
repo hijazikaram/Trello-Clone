@@ -9,6 +9,26 @@ angular.module('myPortfolio').service('mainService', function($http) {
             return response.data
         })
     };
+    this.register = function (user) {
+      console.log(user);
+      return $http({
+        method: "POST",
+        url: "/users",
+        data: user
+      }).then(function (response) {
+        return response
+      })
+    }
+    this.login = function (user) {
+      console.log(user);
+      return $http({
+        method: "POST",
+        url: "/login",
+        data: user
+      }).then(function (response) {
+        return response
+      })
+    }
     this.readBoardById = function(id) {
         return $http({
             method: "GET",
