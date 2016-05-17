@@ -2,11 +2,35 @@
     <nav-directive></nav-directive>
 </div>
 <div id="div-color">
-<div id="h3-name">
-  <h2 id="h3-near-p">Karam Hijazi</h2><p id="p-near-name">@Karam Hijazi</p>
-  <ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="#">Home</a></li>
-  <li role="presentation"><a href="#">Profile</a></li>
-</ul>
-</div>
+    <div id="profile-pic">
+        <img src="{{user.image}}" alt="" />
+    </div>
+    <button type="button" class="btn change-profile-pic btn-info btn-lg" data-toggle="modal" data-target="#myModal">Update Profile Picture</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Update Profile Picture</h4>
+                </div>
+                <div class="modal-body2">
+                    <button id="label2" for="inputdefault" class="btn">Url:</button>
+                    <input id="text-box2" class="form-control" id="inputdefault" placeholder="Url...."type="text" ng-model="user.image">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="love btn btn-primary"ng-click="updateUser()">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="h3-name">
+        <h2 id="h3-near-p">  {{user.name}}</h2>
+        <p id="p-near-name"> @{{user.name}}</p>
+
+    </div>
 </div>

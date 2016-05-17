@@ -3,7 +3,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('Settings', {
     templateUrl: './../routes/Settings.html',
-    // controller: 'homeCtrl',
+    controller: 'SettingsCtrl',
     url: '/Settings'
   })
   .state('Home', {

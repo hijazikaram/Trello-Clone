@@ -22,4 +22,15 @@ angular.module('myPortfolio').controller('homeCtrl', function($scope, mainServic
         $scope.readBoard();
       });
 }
+    $scope.getCurrentUser = function () {
+      mainService.getCurrentUser().then(function (response) {
+        if (!response) {
+          $state.go('Signin')
+        }
+        $scope.user=response;
+      }).catch(function (err) {
+          $state.go('Signin')
+      })
+    }
+    $scope.getCurrentUser();
 });

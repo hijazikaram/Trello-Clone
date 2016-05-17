@@ -1,19 +1,21 @@
 <div class="around-everything">
+  <form ng-submit="register()">
 <h2 class="align-center"><strong>Create a Krello account</strong></h2>
 <p class="name2 around-name">
     Name:</p>
-<input class="width form-control" placeholder="e.g., Karam Hijazi" ng-model="newUser.name"></input>
+<input class="width form-control" placeholder="e.g., Karam Hijazi" ng-model="newUser.name"required="true"></input>
 <p class="name2 around-email">
     Email:</p>
-<input class="width form-control" placeholder="e.g., hg@spew.org.uk" ng-model="newUser.email"></input>
+<input class="width form-control" placeholder="e.g., hg@spew.org.uk" ng-model="newUser.email"required="true"></input>
 <p class="around-password">
     Password:
 </p>
-<input class="width form-control" placeholder="e.g., ........." ng-model="newUser.password"></input>
+<input class="width form-control" placeholder="e.g., ........." ng-model="newUser.password"required="true"></input>
 <div style="text-align:center;">
-<button class="new-account btn btn-info" ng-click="register()">Create New Account</button>
+<button class="new-account btn btn-info" >Create New Account</button>
 </div>
 <p class="around-signin">
   Already have an account? <a id="take-to-signin"ui-sref="Signin">Log in</a>
 </p>
+</for
 </div>

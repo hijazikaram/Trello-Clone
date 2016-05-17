@@ -1,5 +1,5 @@
 var Board = require('../models/Boards');
-
+var User = require('../models/UserModel')
 module.exports = {
 
   createBoard: function(req, res) {
@@ -8,19 +8,26 @@ module.exports = {
       if (err) {
         return res.status(500).send(err);
       } else {
-        res.send(result);
+          User.findByIdAndUpdate(req.user._id, {$addToSet:{boards:result._id}},function (err, user) {
+            if (err) {
+              return res.status(500).send(err);
+            } else {
+              res.status(200).send(result);
+            }
+          })
       }
     });
   },
 
   readBoard: function(req, res) {
-    Board
-      .find(req.query)
+    User
+      .findById(req.user._id)
+      .populate("boards")
       .exec(function(err, result) {
         if (err) {
           res.status(500).send(err);
         } else {
-          res.send(result);
+          res.send(result.boards);
         }
       });
   },

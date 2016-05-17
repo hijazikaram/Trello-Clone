@@ -74,4 +74,15 @@ angular.module('myPortfolio').controller('cardCtrl', function($scope, mainServic
         $scope.toggle = false;
         // $(".div-outer-outer-outer").modal({backdrop: true});
     };
+    $scope.getCurrentUser = function () {
+      mainService.getCurrentUser().then(function (response) {
+        if (!response) {
+          $state.go('Signin')
+        }
+        $scope.user=response;
+      }).catch(function (err) {
+          $state.go('Signin')
+      })
+    }
+    $scope.getCurrentUser();
 });

@@ -1,16 +1,18 @@
 <div class="around-everything">
+  <form ng-submit="login()">
 <h2 class="align-center"><strong>Log in into Krello</strong></h2>
 <p class="name2 around-email">
     Email:</p>
-<input class="width form-control" placeholder="e.g., hg@spew.org.uk" ng-model="credentials.email"></input>
+<input class="width form-control" placeholder="e.g., hg@spew.org.uk" ng-model="credentials.email" required="true"></input>
 <p class="around-password">
     Password:
 </p>
-<input type="password"class="width form-control" placeholder="e.g., ........." ng-model="credentials.password"></input>
+<input type="password"class="width form-control" placeholder="e.g., ........." ng-model="credentials.password" required="true"></input>
 <div style="text-align:center;">
-<button class="new-account btn btn-info" ng-click="login()">Log in</button>
+<button class="new-account btn btn-info">Log in</button>
 </div>
 <p class="around-signin">
-  Don't have an account? <a id="take-to-signin"ui-sref="Signup">Sign Up</a>
+  Don't have an account? <a id="take-to-signin" ui-sref="Signup">Sign Up</a>
 </p>
+</form>
 </div>

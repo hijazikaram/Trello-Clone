@@ -9,6 +9,14 @@ angular.module('myPortfolio').service('mainService', function($http) {
             return response.data
         })
     };
+    this.logout = function() {
+        return $http({
+            method: "GET",
+            url: "/board"
+        }).then(function(response) {
+            return response
+        })
+    };
     this.register = function (user) {
       console.log(user);
       return $http({
@@ -29,6 +37,23 @@ angular.module('myPortfolio').service('mainService', function($http) {
         return response
       })
     }
+    this.getCurrentUser = function(id) {
+        return $http({
+            method: "GET",
+            url: "/me",
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.updateUser = function(user) {
+        return $http({
+            method: "PUT",
+            url: "/users/" + user._id,
+            data: user
+        }).then(function(response) {
+            return response.data;
+        })
+    };
     this.readBoardById = function(id) {
         return $http({
             method: "GET",

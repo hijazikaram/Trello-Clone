@@ -4,7 +4,7 @@ angular.module('myPortfolio').controller('SigninCtrl', function($scope, mainServ
       mainService.login($scope.credentials).then(function (response) {
         $state.go('Home');
         $scope.user = response.data._id;
-        alert("Welcome to Trello");
+        console.log("efgw");
       })
     }
 });
