@@ -42,10 +42,14 @@ angular.module('myPortfolio').service('mainService', function($http) {
             method: "GET",
             url: "/me",
         }).then(function(response) {
+          console.log(response.data)
             return response.data
         })
     };
-    this.updateUser = function(user) {
+    this.updateUser = function(user, newpass) {
+      if (newpass.password) {
+        user.password = newpass.password
+      }
         return $http({
             method: "PUT",
             url: "/users/" + user._id,

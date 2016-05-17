@@ -9,9 +9,11 @@ $scope.getCurrentUser = function () {
       $state.go('Signin')
   })
 }
+$scope.newpass = {};
+
 $scope.getCurrentUser();
 $scope.updateUser = function () {
-  mainService.updateUser($scope.user).then(function (response) {
+  mainService.updateUser($scope.user, $scope.newpass).then(function (response) {
     $scope.getCurrentUser();
   })
 }

@@ -3,8 +3,7 @@ angular.module('myPortfolio').controller('SigninCtrl', function($scope, mainServ
       console.log("its working");
       mainService.login($scope.credentials).then(function (response) {
         $state.go('Home');
-        $scope.user = response.data._id;
-        console.log("efgw");
+        $scope.user = response.data._id;  
       })
     }
 });

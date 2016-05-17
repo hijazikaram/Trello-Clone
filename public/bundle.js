@@ -101,154 +101,6 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
 
 }]);
 
-angular.module('myPortfolio').service('mainService', ["$http", function($http) {
-
-
-    this.readBoard = function() {
-        return $http({
-            method: "GET",
-            url: "/board"
-        }).then(function(response) {
-            return response.data
-        })
-    };
-    this.logout = function() {
-        return $http({
-            method: "GET",
-            url: "/board"
-        }).then(function(response) {
-            return response
-        })
-    };
-    this.register = function (user) {
-      console.log(user);
-      return $http({
-        method: "POST",
-        url: "/users",
-        data: user
-      }).then(function (response) {
-        return response
-      })
-    }
-    this.login = function (user) {
-      console.log(user);
-      return $http({
-        method: "POST",
-        url: "/login",
-        data: user
-      }).then(function (response) {
-        return response
-      })
-    }
-    this.getCurrentUser = function(id) {
-        return $http({
-            method: "GET",
-            url: "/me",
-        }).then(function(response) {
-            return response.data
-        })
-    };
-    this.updateUser = function(user) {
-        return $http({
-            method: "PUT",
-            url: "/users/" + user._id,
-            data: user
-        }).then(function(response) {
-            return response.data;
-        })
-    };
-    this.readBoardById = function(id) {
-        return $http({
-            method: "GET",
-            url: "/board?_id=" + id
-        }).then(function(response) {
-            return response.data
-        })
-    };
-    this.createBoard = function(newTitle) {
-        return $http({
-            method: "POST",
-            url: "/board",
-            data: {
-                title: newTitle
-            }
-        }).then(function(response) {
-            return response.data
-        })
-    };
-
-    this.updateList = function(list) {
-        return $http({
-            method: "PUT",
-            url: "/list/" + list._id,
-            data: {
-                cards: list.cards
-            }
-        }).then(function(response) {
-            return response.data;
-        })
-    };
-    this.deleteBoard = function(boardId) {
-        console.log(boardId);
-        return $http({
-            method: "DELETE",
-            url: "/board/" + boardId._id
-        }).then(function(response) {
-            return response.data
-        })
-    };
-
-    this.readList = function(id) {
-        return $http({
-            method: "GET",
-            url: "/list",
-            // ?_id=" + id
-        }).then(function(response) {
-            return response.data
-        })
-    };
-    this.createList = function(newTitle, board) {
-        return $http({
-            method: "POST",
-            url: "/list",
-            data: {
-                title: newTitle,
-                lists: [],
-                board: board
-            }
-        }).then(function(response) {
-            return response.data
-        })
-    };
-    this.deleteList = function(listId) {
-        console.log(listId);
-        return $http({
-            method: "DELETE",
-            url: "/list/" + listId._id
-        }).then(function(response) {
-            return response.data
-        })
-    };
-    this.deleteCard = function(cardId) {
-        console.log(cardId);
-        return $http({
-            method: "DELETE",
-            url: "/list/" + cardId._id
-        }).then(function(response) {
-            return response.data
-        })
-    };
-    this.readListByBoard = function(id) {
-        return $http({
-            method: "GET",
-            url: "/list?board=" + id
-        }).then(function(response) {
-            return response.data
-        })
-    };
-
-}]);
-
 // angular.module('myPortfolio').controller('ListCtrl', function($scope, $state){
 //         $state.go('List', {id:id});
 // });
@@ -264,9 +116,11 @@ $scope.getCurrentUser = function () {
       $state.go('Signin')
   })
 }
+$scope.newpass = {};
+
 $scope.getCurrentUser();
 $scope.updateUser = function () {
-  mainService.updateUser($scope.user).then(function (response) {
+  mainService.updateUser($scope.user, $scope.newpass).then(function (response) {
     $scope.getCurrentUser();
   })
 }
@@ -277,8 +131,7 @@ angular.module('myPortfolio').controller('SigninCtrl', ["$scope", "mainService",
       console.log("its working");
       mainService.login($scope.credentials).then(function (response) {
         $state.go('Home');
-        $scope.user = response.data._id;
-        console.log("efgw");
+        $scope.user = response.data._id;  
       })
     }
 }]);
@@ -435,6 +288,158 @@ angular.module('myPortfolio').controller('homeCtrl', ["$scope", "mainService", "
 //         }
 //     };
 //  });
+
+angular.module('myPortfolio').service('mainService', ["$http", function($http) {
+
+
+    this.readBoard = function() {
+        return $http({
+            method: "GET",
+            url: "/board"
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.logout = function() {
+        return $http({
+            method: "GET",
+            url: "/board"
+        }).then(function(response) {
+            return response
+        })
+    };
+    this.register = function (user) {
+      console.log(user);
+      return $http({
+        method: "POST",
+        url: "/users",
+        data: user
+      }).then(function (response) {
+        return response
+      })
+    }
+    this.login = function (user) {
+      console.log(user);
+      return $http({
+        method: "POST",
+        url: "/login",
+        data: user
+      }).then(function (response) {
+        return response
+      })
+    }
+    this.getCurrentUser = function(id) {
+        return $http({
+            method: "GET",
+            url: "/me",
+        }).then(function(response) {
+          console.log(response.data)
+            return response.data
+        })
+    };
+    this.updateUser = function(user, newpass) {
+      if (newpass.password) {
+        user.password = newpass.password
+      }
+        return $http({
+            method: "PUT",
+            url: "/users/" + user._id,
+            data: user
+        }).then(function(response) {
+            return response.data;
+        })
+    };
+    this.readBoardById = function(id) {
+        return $http({
+            method: "GET",
+            url: "/board?_id=" + id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.createBoard = function(newTitle) {
+        return $http({
+            method: "POST",
+            url: "/board",
+            data: {
+                title: newTitle
+            }
+        }).then(function(response) {
+            return response.data
+        })
+    };
+
+    this.updateList = function(list) {
+        return $http({
+            method: "PUT",
+            url: "/list/" + list._id,
+            data: {
+                cards: list.cards
+            }
+        }).then(function(response) {
+            return response.data;
+        })
+    };
+    this.deleteBoard = function(boardId) {
+        console.log(boardId);
+        return $http({
+            method: "DELETE",
+            url: "/board/" + boardId._id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+
+    this.readList = function(id) {
+        return $http({
+            method: "GET",
+            url: "/list",
+            // ?_id=" + id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.createList = function(newTitle, board) {
+        return $http({
+            method: "POST",
+            url: "/list",
+            data: {
+                title: newTitle,
+                lists: [],
+                board: board
+            }
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.deleteList = function(listId) {
+        console.log(listId);
+        return $http({
+            method: "DELETE",
+            url: "/list/" + listId._id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.deleteCard = function(cardId) {
+        console.log(cardId);
+        return $http({
+            method: "DELETE",
+            url: "/list/" + cardId._id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+    this.readListByBoard = function(id) {
+        return $http({
+            method: "GET",
+            url: "/list?board=" + id
+        }).then(function(response) {
+            return response.data
+        })
+    };
+
+}]);
 
 angular.module('myPortfolio').directive('listcardsDirective', ["mainService", "$state", function(mainService, $state) {
     return {
