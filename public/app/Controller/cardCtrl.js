@@ -6,14 +6,21 @@ angular.module('myPortfolio').controller('cardCtrl', function($scope, mainServic
     $scope.newTitle = "";
     $scope.input1 = "";
 
-    $scope.getBoard = function() {
-      return mainService.readBoardById($stateParams.id)
-      .then(function(response) {
-        console.log(response);
-        $scope.board = response[0];
-      })
-    }
+    // $scope.getBoard = function() {
+    //   console.log($scope.board, 'get board');
+    //   return mainService.readBoardById($stateParams.id)
+    //   .then(function(response) {
+    //     console.log(response);
+    //     $scope.board = response[0];
+    //   })
+    // }
 
+    // $scope.updateBoard = function () {
+    //   console.log($scope.board, 'update board');
+    //   mainService.updateBoard($scope.board).then(function (response) {
+    //     $scope.getBoard()
+    //   })
+    // }
 
     $scope.createList = function() {
         console.log("createList");

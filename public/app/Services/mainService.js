@@ -147,5 +147,14 @@ angular.module('myPortfolio').service('mainService', function($http) {
             return response.data
         })
     };
+    // this.updateBoard = function(board) {
+    //     return $http({
+    //         method: "PUT",
+    //         url: "/board/" + board._id
+    //         data: board
+    //     }).then(function(response) {
+    //         return response.data;
+    //     })
+    // };
 
 });

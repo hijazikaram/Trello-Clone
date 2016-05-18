@@ -1,37 +1,36 @@
-<div style="background-color:{{board.backgroundcolor}}">
     <div>
         <nav-directive></nav-directive>
     </div>
-    <div class="color-picker">
-        <button type="button" class="change-background btn btn-info btn-lg" data-toggle="modal" data-target="#hisModal">Change Background</button>
+    <!-- <div class="color-picker">
+        <button type="button" class="change-background btn btn-info btn-lg" data-toggle="modal" data-target="#hisModal">Change Background</button> -->
 
         <!-- Modal -->
-        <div id="hisModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+        <!-- <div id="hisModal" class="modal fade" role="dialog">
+            <div class="modal-dialog"> -->
 
                 <!-- Modal content-->
-                <div class="modal-content">
+                <!-- <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Change Background</h4>
                     </div>
                     <div class="modal-body2">
-                        <div id="fighting" class="same" ng-click=""></div>
-                        <div id="fire" class="same" ng-click=""></div>
-                        <div id="grass" class="same" ng-click=""></div>
-                        <div id="ghost" class="same" ng-click=""></div>
-                        <div id="electric" class="same" ng-click=""></div>
-                        <div id="water" class="same" ng-click=""></div>
+                        <div class="same fighting" ng-click="board.backgroundcolor=fighting"></div>
+                        <div class="same fire" ng-click="board.backgroundcolor=fire"></div>
+                        <div class="same grass" ng-click="board.backgroundcolor=grass"></div>
+                        <div class="same ghost" ng-click="board.backgroundcolor=ghost"></div>
+                        <div class="same electric" ng-click="board.backgroundcolor=electric"></div>
+                        <div class="same water" ng-click="board.backgroundcolor=water"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="love btn btn-primary" ng-click="updateUser()">Save</button>
+                        <button type="button" data-dismiss="modal" class="love btn btn-primary" ng-click="updateBoard()">Save</button>
                     </div>
                 </div>
 
             </div>
-        </div>
-    </div>
-    <div class="div-outer-outer-outer" style="background-color:{{board.backgroundcolor}}">
+        </div> -->
+    <div class="div-outer-outer-outer">
+       <!-- style="background-color:{{board.backgroundcolor}} -->
         <div class="div-outer-outer">
             <div id="div-outer" ng-repeat="list in lists">
                 <div class="one board-title" ng-mouseover="hover = true" ng-mouseleave="hover=false">

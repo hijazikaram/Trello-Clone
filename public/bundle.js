@@ -153,14 +153,21 @@ angular.module('myPortfolio').controller('cardCtrl', ["$scope", "mainService", "
     $scope.newTitle = "";
     $scope.input1 = "";
 
-    $scope.getBoard = function() {
-      return mainService.readBoardById($stateParams.id)
-      .then(function(response) {
-        console.log(response);
-        $scope.board = response[0];
-      })
-    }
+    // $scope.getBoard = function() {
+    //   console.log($scope.board, 'get board');
+    //   return mainService.readBoardById($stateParams.id)
+    //   .then(function(response) {
+    //     console.log(response);
+    //     $scope.board = response[0];
+    //   })
+    // }
 
+    // $scope.updateBoard = function () {
+    //   console.log($scope.board, 'update board');
+    //   mainService.updateBoard($scope.board).then(function (response) {
+    //     $scope.getBoard()
+    //   })
+    // }
 
     $scope.createList = function() {
         console.log("createList");
@@ -454,6 +461,15 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
             return response.data
         })
     };
+    // this.updateBoard = function(board) {
+    //     return $http({
+    //         method: "PUT",
+    //         url: "/board/" + board._id
+    //         data: board
+    //     }).then(function(response) {
+    //         return response.data;
+    //     })
+    // };
 
 }]);
 
