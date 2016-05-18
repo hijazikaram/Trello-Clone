@@ -32,7 +32,7 @@ module.exports = {
       });
   },
 
-  update: function(req, res) {
+  updateBoard: function(req, res) {
     Board.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
       if (err) {
         return res.status(500).send(err);

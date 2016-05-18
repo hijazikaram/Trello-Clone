@@ -56,6 +56,7 @@ app.post('/list', listController.createList);
 app.get('/list', listController.readList);
 app.delete('/list/:id', listController.deleteList);
 app.put('/list/:id', listController.updateList);
+app.put('/board/:id', boardCtrl.updateBoard);
 app.delete('/card/:id', listController.deleteCard);
 app.put('/card/:id', listController.updateCard);
 

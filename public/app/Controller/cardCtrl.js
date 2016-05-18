@@ -1,10 +1,19 @@
-angular.module('myPortfolio').controller('cardCtrl', function($scope, mainService, $state, board, ModalService) {
+angular.module('myPortfolio').controller('cardCtrl', function($scope, mainService, $state, board, ModalService, $stateParams) {
     $scope.board = board;
     $scope.show = false;
     $scope.isInput = false;
     $scope.showCard = false;
     $scope.newTitle = "";
     $scope.input1 = "";
+
+    $scope.getBoard = function() {
+      return mainService.readBoardById($stateParams.id)
+      .then(function(response) {
+        console.log(response);
+        $scope.board = response[0];
+      })
+    }
+
 
     $scope.createList = function() {
         console.log("createList");
@@ -66,6 +75,13 @@ angular.module('myPortfolio').controller('cardCtrl', function($scope, mainServic
         mainService.updateList(list).then(function() {
             $scope.input1 = "";
             $scope.closePopups();
+        });
+
+    };
+    $scope.saveBackgroundColor = function(input, board) {
+        mainService.updateBoard(board).then(function(response) {
+              $scope.board = response;
+              $scope.getBoard();
         });
 
     };

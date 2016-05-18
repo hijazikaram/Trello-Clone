@@ -202,6 +202,10 @@ span {
     height: 45em;
     overflow-x: scroll;
     margin-left: -100px;
+    margin-top: -17px;
+}
+.div-outer-outer-outer {
+
 }
 .button-before-form {
     color: white;
@@ -357,8 +361,8 @@ img {
 }
 .update-profile {
     display: block;
-    width: 15%;
-    text-align: center;
+    width: 11%;
+    margin-left: 40px;
 }
 .input-box4 {
     width: 40%;
@@ -368,4 +372,78 @@ img {
     padding: 15px;
 }
 .p5{
+}
+.pencil-brush{
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: black;
+  margin-top: 35px;
+  margin-right: 40px;
+}
+.change-background{
+  width: 13%;
+  position: relative;
+  top: -17px;
+  right: -83%;
+}
+.same{
+  width: 86px;
+  height: 50px;
+  background-color: black;
+  margin: 10px
+}
+#fire {
+  background-color: #B53F00;
+}
+#water {
+    background-color: #6fc7f6;
+}
+.rock {
+  background-color: #905F3B;
+}
+.dark {
+  background-color: #423227;
+}
+#fighting {
+  background-color: #BD0007;
+}
+.normal {
+  background-color: #727255;
+}
+.ice {
+  background-color: #80ACC2;
+}
+.steel {
+  background-color: #656C71;
+}
+.flying {
+  background-color: #69558E;
+}
+#grass {
+  background-color: #339626;
+}
+.bug {
+  background-color: #9EB441;
+}
+.fairy {
+  background-color: #96023F;
+}
+.poison {
+  background-color: #9824A3;
+}
+#electric {
+  background-color: #B9B30F;
+}
+.dragon {
+  background-color: #4540B2;
+}
+.ground {
+  background-color: #8C7535;
+}
+.psychic {
+  background-color: #A9244A;
+}
+#ghost {
+  background-color: #6252AC;
 }

@@ -1,36 +1,68 @@
-<div>
-    <nav-directive></nav-directive>
-</div>
-<div class="div-outer-outer-outer">
-    <div class="div-outer-outer">
-        <div id="div-outer" ng-repeat="list in lists">
-            <div class="one board-title" ng-mouseover="hover = true" ng-mouseleave="hover=false">
-                <a ui-sref="card({id:board._id})">
-                    <button id="button4" type="button" class="btn btn-info btn-lg" data-target="#myModal">{{list.title}}</button>
-                </a>
-                <div class="delete" ng-if="hover">
-                    <i class="fa fa-times" aria-hidden="true" style="color:red" ng-click="remove(list)"></i>
-                </div>
-                <listcards-directive></listcards-directive>
-            </div>
-            <button class="button-before-form btn btn-primary btn-lg outline" type="button" ng-hide="showCard" ng-click="showCard = !showCard">Add a card...</button>
-            <form ng-show="showCard">
-                <textarea class="input1 form-control" rows="3" placeholder="Add a card..." ng-model="input1"></textarea>
-                <button type="submit" class="pink-for-cole pink3 btn btn-primary" ng-click="saveInput(input1, list)"> Save</button>
-                <button type="button" ng-click="showCard = !showCard; input1=''" class="pink3 pink4 btn btn-primary">Cancel</button>
-            </form>
-            <br>
+<div style="background-color:{{board.backgroundcolor}}">
+    <div>
+        <nav-directive></nav-directive>
+    </div>
+    <div class="color-picker">
+        <button type="button" class="change-background btn btn-info btn-lg" data-toggle="modal" data-target="#hisModal">Change Background</button>
 
-        </div>
-        <div class="div-around-love3">
-            <div class="love3">
-                <button id="button-in-love3" type="button" ng-hide="isInput" class="btn btn-primary btn-lg outline" ng-click="isInput = !isInput">Add new list...</button>
-                <!-- <span ng-hide="isInput" ng-click="isInput = !isInput">Add new list</span> -->
+        <!-- Modal -->
+        <div id="hisModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change Background</h4>
+                    </div>
+                    <div class="modal-body2">
+                        <div id="fighting" class="same" ng-click=""></div>
+                        <div id="fire" class="same" ng-click=""></div>
+                        <div id="grass" class="same" ng-click=""></div>
+                        <div id="ghost" class="same" ng-click=""></div>
+                        <div id="electric" class="same" ng-click=""></div>
+                        <div id="water" class="same" ng-click=""></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="love btn btn-primary" ng-click="updateUser()">Save</button>
+                    </div>
+                </div>
+
             </div>
-            <form ng-show="isInput" ng-submit="createList()">
-                <input class="input form-control" ng-model="newTitle" placeholder="Add new list..." required="true"></input>
-                <button type="submit" class="pink btn btn-primary"> Save</button>
-                <button type="button" ng-click="isInput = !isInput; newTitle=''" class="pink2 btn btn-primary">Cancel</button>
-            </form>
         </div>
     </div>
+    <div class="div-outer-outer-outer" style="background-color:{{board.backgroundcolor}}">
+        <div class="div-outer-outer">
+            <div id="div-outer" ng-repeat="list in lists">
+                <div class="one board-title" ng-mouseover="hover = true" ng-mouseleave="hover=false">
+                    <a ui-sref="card({id:board._id})">
+                        <button id="button4" type="button" class="btn btn-info btn-lg" data-target="#myModal">{{list.title}}</button>
+                    </a>
+                    <div class="delete" ng-if="hover">
+                        <i class="fa fa-times" aria-hidden="true" style="color:red" ng-click="remove(list)"></i>
+                    </div>
+                    <listcards-directive></listcards-directive>
+                </div>
+                <button class="button-before-form btn btn-primary btn-lg outline" type="button" ng-hide="showCard" ng-click="showCard = !showCard">Add a card...</button>
+                <form ng-show="showCard">
+                    <textarea class="input1 form-control" rows="3" placeholder="Add a card..." ng-model="input1"></textarea>
+                    <button type="submit" class="pink-for-cole pink3 btn btn-primary" ng-click="saveInput(input1, list)"> Save</button>
+                    <button type="button" ng-click="showCard = !showCard; input1=''" class="pink3 pink4 btn btn-primary">Cancel</button>
+                </form>
+                <br>
+
+            </div>
+            <div class="div-around-love3">
+                <div class="love3">
+                    <button id="button-in-love3" type="button" ng-hide="isInput" class="btn btn-primary btn-lg outline" ng-click="isInput = !isInput">Add new list...</button>
+                    <!-- <span ng-hide="isInput" ng-click="isInput = !isInput">Add new list</span> -->
+                </div>
+                <form ng-show="isInput" ng-submit="createList()">
+                    <input class="input form-control" ng-model="newTitle" placeholder="Add new list..." required="true"></input>
+                    <button type="submit" class="pink btn btn-primary"> Save</button>
+                    <button type="button" ng-click="isInput = !isInput; newTitle=''" class="pink2 btn btn-primary">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
