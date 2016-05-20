@@ -3,7 +3,7 @@
         <nav-directive></nav-directive>
     </div>
     <div class="color-picker">
-        <button type="button" class="change-background btn btn-info btn-lg" data-toggle="modal" data-target="#hisModal">Change Background</button>
+        <button type="button" class="change-background {{board.backgroundcolor}} btn " data-toggle="modal" data-target="#hisModal">Change Background</button>
 
         <!-- Modal -->
         <div id="hisModal" class="modal fade" role="dialog">
@@ -22,6 +22,14 @@
                         <div class="ghost same" ng-click="board.backgroundcolor='ghost'"></div>
                         <div class="electric same" ng-click="board.backgroundcolor='electric'"></div>
                         <div class="water same" ng-click="board.backgroundcolor='water'"></div>
+                      </div>
+                      <div class="modal-body2">
+                        <div class="steel same" ng-click="board.backgroundcolor='steel'"></div>
+                        <div class="dark same " ng-click="board.backgroundcolor='fire'"></div>
+                        <div class="pink-coles-hair same" ng-click="board.backgroundcolor='pink-coles-hair'"></div>
+                        <div class="realpink same" ng-click="board.backgroundcolor='realpink'"></div>
+                        <div class="brown2 same" ng-click="board.backgroundcolor='brown2'"></div>
+                        <div class="black2 same" ng-click="board.backgroundcolor='black2'"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="love btn btn-primary" ng-click="updateBoard()">Save</button>
