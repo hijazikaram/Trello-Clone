@@ -11,7 +11,7 @@ angular.module('myPortfolio').controller('cardCtrl', function($scope, mainServic
       return mainService.readBoardById($stateParams.id)
       .then(function(response) {
         console.log(response);
-        $scope.board = response[0];
+        $scope.board = response;
       })
     }
 
@@ -95,7 +95,6 @@ angular.module('myPortfolio').controller('cardCtrl', function($scope, mainServic
     };
     $scope.saveBackgroundColor = function(input, board) {
         mainService.updateBoard(board).then(function(response) {
-              $scope.board = response;
               $scope.getBoard();
         });
 
