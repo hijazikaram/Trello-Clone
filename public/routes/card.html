@@ -1,6 +1,6 @@
 <div class="{{board.backgroundcolor}}">
     <div>
-        <nav-directive></nav-directive>
+        <nav-directive class="{{board.backgroundcolor}}"></nav-directive>
     </div>
     <div class="color-picker">
         <button type="button" class="change-background {{board.backgroundcolor}} btn " data-toggle="modal" data-target="#hisModal">Change Background</button>
@@ -25,7 +25,7 @@
                       </div>
                       <div class="modal-body2">
                         <div class="steel same" ng-click="board.backgroundcolor='steel'"></div>
-                        <div class="dark same " ng-click="board.backgroundcolor='fire'"></div>
+                        <div class="dark same " ng-click="board.backgroundcolor='dark'"></div>
                         <div class="pink-coles-hair same" ng-click="board.backgroundcolor='pink-coles-hair'"></div>
                         <div class="realpink same" ng-click="board.backgroundcolor='realpink'"></div>
                         <div class="brown2 same" ng-click="board.backgroundcolor='brown2'"></div>
