@@ -31,16 +31,30 @@ module.exports = {
         }
       });
   },
-
-  updateBoard: function(req, res) {
-    Board.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
-      if (err) {
-        return res.status(500).send(err);
-      } else {
-        res.send(result);
-      }
-    });
+  readBoardById: function(req, res) {
+    console.log(req.params.id);
+    Board.findOne({_id: req.params.id})
+      .exec(function(err, result) {
+        console.log(result)
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          res.send(result);
+        }
+      });
   },
+
+
+
+    updateBoard: function(req, res) {
+      Board.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
+        if (err) {
+          return res.status(500).send(err);
+        } else {
+          res.send(result);
+        }
+      });
+    },
 
   deleteBoard: function(req, res) {
     console.log(req.params)

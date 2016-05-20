@@ -4,7 +4,7 @@ var boardSchema = new mongoose.Schema({
 
     title: String,
     backgroundcolor: {type:String,
-     default: "blue"}
+     default: "water"}
 
 });
 

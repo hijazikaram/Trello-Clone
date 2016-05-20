@@ -88,10 +88,11 @@ app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $u
     url: '/Card/:id',
     resolve: {
       board:["$stateParams", "mainService", function($stateParams, mainService) {
+        console.log('$stateParams', $stateParams.id);
         return mainService.readBoardById($stateParams.id)
         .then(function(response) {
-          console.log(response);
-          return response[0];
+          console.log("resolve", response);
+          return response;
         })
       }]
     }
@@ -153,19 +154,26 @@ angular.module('myPortfolio').controller('cardCtrl', ["$scope", "mainService", "
     $scope.newTitle = "";
     $scope.input1 = "";
 
-    // $scope.getBoard = function() {
-    //   console.log($scope.board, 'get board');
-    //   return mainService.readBoardById($stateParams.id)
-    //   .then(function(response) {
-    //     console.log(response);
-    //     $scope.board = response[0];
-    //   })
-    // }
+    $scope.getBoard = function() {
+      console.log($scope.board, 'get board');
+      return mainService.readBoardById($stateParams.id)
+      .then(function(response) {
+        console.log(response);
+        $scope.board = response[0];
+      })
+    }
 
-    // $scope.updateBoard = function () {
-    //   console.log($scope.board, 'update board');
-    //   mainService.updateBoard($scope.board).then(function (response) {
-    //     $scope.getBoard()
+    $scope.updateBoard = function () {
+      console.log($scope.board, 'update board');
+
+      mainService.updateBoard($scope.board).then(function (response) {
+        $scope.getBoard()
+
+      })
+    };
+    // $scope.readBoardById = function () {
+    //   mainService.readBoardById($stateParams.id).then(function (response) {
+    //
     //   })
     // }
 
@@ -188,6 +196,7 @@ angular.module('myPortfolio').controller('cardCtrl', ["$scope", "mainService", "
 
     $scope.getLists = function() {
         mainService.readListByBoard($scope.board._id).then(function(response) {
+          console.log(response);
             $scope.lists = response;
         })
     };
@@ -267,15 +276,16 @@ angular.module('myPortfolio').controller('homeCtrl', ["$scope", "mainService", "
     // $scope.boards = [];
     $scope.readBoard = function(){
         mainService.readBoard().then(function(response){
+          console.log("readBoard",response);
           $scope.boards = response;
         })
     };
     $scope.readBoard();
     $scope.createBoard = function () {
         mainService.createBoard($scope.newTitle).then(function (response) {
+          console.log("createBoard", response);
           $state.go("card",{id:response._id})
         })
-        $scope.readBoard();
 
     };
     $scope.remove = function(boardId) {
@@ -315,7 +325,7 @@ angular.module('myPortfolio').controller('homeCtrl', ["$scope", "mainService", "
 angular.module('myPortfolio').service('mainService', ["$http", function($http) {
 
 
-    this.readBoard = function() {
+    this.readBoard = function(board) {
         return $http({
             method: "GET",
             url: "/board"
@@ -332,7 +342,6 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
         })
     };
     this.register = function (user) {
-      console.log(user);
       return $http({
         method: "POST",
         url: "/users",
@@ -342,7 +351,6 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
       })
     }
     this.login = function (user) {
-      console.log(user);
       return $http({
         method: "POST",
         url: "/login",
@@ -356,7 +364,6 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
             method: "GET",
             url: "/me",
         }).then(function(response) {
-          console.log(response.data)
             return response.data
         })
     };
@@ -373,10 +380,12 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
         })
     };
     this.readBoardById = function(id) {
+      console.log(id);
         return $http({
             method: "GET",
-            url: "/board?_id=" + id
+            url: "/board/id/" + id
         }).then(function(response) {
+          console.log(response);
             return response.data
         })
     };
@@ -404,7 +413,6 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
         })
     };
     this.deleteBoard = function(boardId) {
-        console.log(boardId);
         return $http({
             method: "DELETE",
             url: "/board/" + boardId._id
@@ -436,7 +444,6 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
         })
     };
     this.deleteList = function(listId) {
-        console.log(listId);
         return $http({
             method: "DELETE",
             url: "/list/" + listId._id
@@ -445,7 +452,6 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
         })
     };
     this.deleteCard = function(cardId) {
-        console.log(cardId);
         return $http({
             method: "DELETE",
             url: "/list/" + cardId._id
@@ -461,15 +467,15 @@ angular.module('myPortfolio').service('mainService', ["$http", function($http) {
             return response.data
         })
     };
-    // this.updateBoard = function(board) {
-    //     return $http({
-    //         method: "PUT",
-    //         url: "/board/" + board._id
-    //         data: board
-    //     }).then(function(response) {
-    //         return response.data;
-    //     })
-    // };
+    this.updateBoard = function(board) {
+        return $http({
+            method: "PUT",
+            url: "/board/" + board._id,
+            data: board
+        }).then(function(response) {
+            return response.data;
+        })
+    };
 
 }]);
 

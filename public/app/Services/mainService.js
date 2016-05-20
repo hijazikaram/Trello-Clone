@@ -1,7 +1,7 @@
 angular.module('myPortfolio').service('mainService', function($http) {
 
 
-    this.readBoard = function() {
+    this.readBoard = function(board) {
         return $http({
             method: "GET",
             url: "/board"
@@ -18,7 +18,6 @@ angular.module('myPortfolio').service('mainService', function($http) {
         })
     };
     this.register = function (user) {
-      console.log(user);
       return $http({
         method: "POST",
         url: "/users",
@@ -28,7 +27,6 @@ angular.module('myPortfolio').service('mainService', function($http) {
       })
     }
     this.login = function (user) {
-      console.log(user);
       return $http({
         method: "POST",
         url: "/login",
@@ -42,7 +40,6 @@ angular.module('myPortfolio').service('mainService', function($http) {
             method: "GET",
             url: "/me",
         }).then(function(response) {
-          console.log(response.data)
             return response.data
         })
     };
@@ -59,10 +56,12 @@ angular.module('myPortfolio').service('mainService', function($http) {
         })
     };
     this.readBoardById = function(id) {
+      console.log(id);
         return $http({
             method: "GET",
-            url: "/board?_id=" + id
+            url: "/board/id/" + id
         }).then(function(response) {
+          console.log(response);
             return response.data
         })
     };
@@ -90,7 +89,6 @@ angular.module('myPortfolio').service('mainService', function($http) {
         })
     };
     this.deleteBoard = function(boardId) {
-        console.log(boardId);
         return $http({
             method: "DELETE",
             url: "/board/" + boardId._id
@@ -122,7 +120,6 @@ angular.module('myPortfolio').service('mainService', function($http) {
         })
     };
     this.deleteList = function(listId) {
-        console.log(listId);
         return $http({
             method: "DELETE",
             url: "/list/" + listId._id
@@ -131,7 +128,6 @@ angular.module('myPortfolio').service('mainService', function($http) {
         })
     };
     this.deleteCard = function(cardId) {
-        console.log(cardId);
         return $http({
             method: "DELETE",
             url: "/list/" + cardId._id
@@ -147,14 +143,14 @@ angular.module('myPortfolio').service('mainService', function($http) {
             return response.data
         })
     };
-    // this.updateBoard = function(board) {
-    //     return $http({
-    //         method: "PUT",
-    //         url: "/board/" + board._id
-    //         data: board
-    //     }).then(function(response) {
-    //         return response.data;
-    //     })
-    // };
+    this.updateBoard = function(board) {
+        return $http({
+            method: "PUT",
+            url: "/board/" + board._id,
+            data: board
+        }).then(function(response) {
+            return response.data;
+        })
+    };
 
 });

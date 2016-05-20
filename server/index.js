@@ -49,6 +49,8 @@ app.get('/logout', function(req, res, next) {
   req.logout();
   return res.status(200).send('logged out');
 });
+
+app.get('/board/id/:id', boardCtrl.readBoardById);
 app.get('/board', boardCtrl.readBoard);
 app.post('/board', isAuthed, boardCtrl.createBoard);
 app.delete('/board/:id', boardCtrl.deleteBoard);

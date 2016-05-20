@@ -29,10 +29,10 @@
             </div>
         </div>
     </div>
-    <div id="div-outer"ng-repeat="board in boards ">
+    <div id="div-outer"ng-repeat="board in boards" >
       <div class="one board-title" ng-mouseover="hover = true" ng-mouseleave="hover=false">
         <a ui-sref="card({id:board._id})">
-        <button id="button2" type="button" class="btn btn-info btn-lg"  data-target="#myModal">{{board.title}}</button></a>
+        <button id="button2" type="button" class="{{board.backgroundcolor}} btn btn-info btn-lg"  data-target="#myModal">{{board.title}}</button></a>
         <div class="delete" ng-if="hover">
           <i class="fa fa-times" aria-hidden="true"style="color:red" ng-click="remove(board)"></i>
         </div>

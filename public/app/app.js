@@ -27,10 +27,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     url: '/Card/:id',
     resolve: {
       board:function($stateParams, mainService) {
+        console.log('$stateParams', $stateParams.id);
         return mainService.readBoardById($stateParams.id)
         .then(function(response) {
-          console.log(response);
-          return response[0];
+          console.log("resolve", response);
+          return response;
         })
       }
     }

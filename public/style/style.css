@@ -377,7 +377,6 @@ img {
   position: absolute;
   top: 0;
   right: 0;
-  color: black;
   margin-top: 35px;
   margin-right: 40px;
 }
@@ -393,10 +392,10 @@ img {
   background-color: black;
   margin: 10px
 }
-#fire {
+.fire {
   background-color: #B53F00;
 }
-#water {
+.water {
     background-color: #6fc7f6;
 }
 .rock {
@@ -405,7 +404,7 @@ img {
 .dark {
   background-color: #423227;
 }
-#fighting {
+.fighting {
   background-color: #BD0007;
 }
 .normal {
@@ -420,7 +419,7 @@ img {
 .flying {
   background-color: #69558E;
 }
-#grass {
+.grass {
   background-color: #339626;
 }
 .bug {
@@ -432,7 +431,7 @@ img {
 .poison {
   background-color: #9824A3;
 }
-#electric {
+.electric {
   background-color: #B9B30F;
 }
 .dragon {
@@ -444,6 +443,6 @@ img {
 .psychic {
   background-color: #A9244A;
 }
-#ghost {
+.ghost {
   background-color: #6252AC;
 }

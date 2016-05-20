@@ -4,15 +4,16 @@ angular.module('myPortfolio').controller('homeCtrl', function($scope, mainServic
     // $scope.boards = [];
     $scope.readBoard = function(){
         mainService.readBoard().then(function(response){
+          console.log("readBoard",response);
           $scope.boards = response;
         })
     };
     $scope.readBoard();
     $scope.createBoard = function () {
         mainService.createBoard($scope.newTitle).then(function (response) {
+          console.log("createBoard", response);
           $state.go("card",{id:response._id})
         })
-        $scope.readBoard();
 
     };
     $scope.remove = function(boardId) {
